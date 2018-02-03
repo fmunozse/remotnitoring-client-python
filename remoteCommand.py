@@ -1,4 +1,4 @@
-import json,sys,time,datetime
+import json,sys,traceback, time,datetime
 import urllib2, subprocess 
 
 server = 'http://localhost:8080';
@@ -77,15 +77,18 @@ def perfom_requestcommand (requestCommand):
 while True:
     print 'checking {}'.format(datetime.datetime.now() );
 
-    # 1 Firt login and generate token
-    auth_token = get_token(user, pwd);
+    try:
+        # 1 Firt login and generate token
+        auth_token = get_token(user, pwd);
 
-    # 2 Get list of commands 
-    result = get_response_json_object (url_commands,auth_token);
+        # 2 Get list of commands 
+        result = get_response_json_object (url_commands,auth_token);
 
-    # 3 Iterate over the list of commands and perfom th
-    for requestCommand in result:
-        responseCommand = perfom_requestcommand (requestCommand);
-        upload_response_command(url_commands, responseCommand, auth_token);
+        # 3 Iterate over the list of commands and perfom th
+        for requestCommand in result:
+            responseCommand = perfom_requestcommand (requestCommand);
+            upload_response_command(url_commands, responseCommand, auth_token);
+
+    except: traceback.print_exc()
 
     time.sleep(seconds_wait)
