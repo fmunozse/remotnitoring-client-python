@@ -87,7 +87,7 @@ while True:
         # 3 Iterate over the list of commands and perfom th
         for requestCommand in result:
             responseCommand = perfom_requestcommand (requestCommand);
-            upload_response_command(url_commands, responseCommand, auth_token);
+            post_response_command(url_commands, responseCommand, auth_token);
 
     except: traceback.print_exc()
 
