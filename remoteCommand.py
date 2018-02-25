@@ -59,19 +59,19 @@ def perfom_requestcommand (requestCommand):
     responseCommand['description'] = requestCommand['description'];
     responseCommand['command'] = requestCommand['command'];
     responseCommand['idRequestRemoteCommand'] = requestCommand['idRequestRemoteCommand'];
-
-    for command in requestCommand['command'].splitlines():
-        p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        log =  p.stdout.read();
-        retval = p.wait();
-        responseCommand['codReturn'] = retval;        
-        if responseCommand.get('logResult') is not None:
-            responseCommand['logResult'] = log;            
-        else:             
-            responseCommand['logResult'] = "\n".join([str(responseCommand.get('logResult')),log]);
-
-    return responseCommand;
-
+                                                                                                                             
+    strLog = ""                                                                                                              
+    for command in requestCommand['command'].splitlines():                                                                   
+        p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)                          
+        log =  p.stdout.read();                                                                                              
+        retval = p.wait();                                                                                                   
+        responseCommand['codReturn'] = retval;                                                                               
+                                                                                                                             
+        strLog = "\n>>> " + command + "\n" + log + strLog;                                                                   
+        print "performed command {}. Log {} ".format(command, log )                                                          
+                                                                                                                             
+    responseCommand['logResult'] = strLog;                                                                                   
+    return responseCommand;     
 
 
 while True:
