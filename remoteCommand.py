@@ -67,7 +67,7 @@ def perfom_requestcommand (requestCommand):
         retval = p.wait();                                                                                                   
         responseCommand['codReturn'] = retval;                                                                               
                                                                                                                              
-        strLog = "\n>>> " + command + "\n" + log + strLog;                                                                   
+        strLog = strLog + "\n>>> " + command + "\n" + log;                                                                   
         print "performed command {}. Log {} ".format(command, log )                                                          
                                                                                                                              
     responseCommand['logResult'] = strLog;                                                                                   
